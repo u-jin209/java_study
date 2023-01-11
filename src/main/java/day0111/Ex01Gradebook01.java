@@ -7,29 +7,29 @@ public class Ex01Gradebook01 {
         Student s = new Student(); //Student() 생성자 -> 어떠한 객체를 초기화 할때 실행되는 메소드
                                     // 자바에 존재하는 모든 객체는 같은 조상을 가지고있음
 
-        s.id =1;
-        s.name = "황유진";
-        s.korean = 100;
-        s.english = 90;
-        s.math = 80;
+        s.setId(1);
+        s.setName("황유진");
+        s.setKorean(100);
+        s.setEnglish(90);
+        s.setMath(80);
 
         s.print();
 
         Student s2 = new Student();
-        s2.id =2;
-        s2.name = "유승재";
-        s2.korean = 90;
-        s2.english = 90;
-        s2.math = 80;
+        s2.setId(2);
+        s2.setName("유승재");
+        s2.setKorean(90);
+        s2.setEnglish(90);
+        s2.setMath(80);
 
         s2.print();
 
         Student s3 = new Student();
-        s3.id =2;
-        s3.name = "유승재";
-        s3.korean = 90;
-        s3.english = 90;
-        s3.math = 80;
+        s3.setId(2);
+        s3.setName("유승재");
+        s3.setKorean(90);
+        s3.setEnglish(90);
+        s3.setMath(80);
 
         s2.print();
         s3.print();

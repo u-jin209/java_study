@@ -6,7 +6,7 @@ import util.ScannerUtil;
 
 import java.util.Scanner;
 
-public class Ex01Gradebook02 {
+public class Ex01Gradebook03 {
     private static Scanner SCANNER = new Scanner(System.in);
     public static  final  int ARRAY_LENGTH = 5;
     private static final int SCORE_MAX =100;
