@@ -6,4 +6,7 @@ public class Student {
     public  int korean;
     public  int english;
     public  int math;
+
+    public void printInfo() {
+    }
 }
