@@ -2,6 +2,9 @@ package util;
 
 //배열을 사용할 때 도움이 될만한 static 메소드를 모아둔 ArrayUtil 클래스
 
+import day0111.Board;
+import model.BoardDTO;
+
 public class ArrayUtil {
     // 1. int[]
     // A. size()
@@ -75,7 +78,7 @@ public class ArrayUtil {
         return temp;
     }
 
-    // H. set()
+    // H. Set()
     public static int set(int[] array, int index, int element) {
         int original = get(array, index);
         array[index] = element;
@@ -111,4 +114,95 @@ public class ArrayUtil {
             }
         }
     }
+
+
+    //2. board[]
+    //A.size
+    public static int size (Board[] array){
+        return  array.length;
+    }
+
+    //B. isEmpty()
+    public static boolean isEmpty( Board[] arrays){
+        return size(arrays) == 0;
+    }
+
+    //C. get()
+    public static  Board get(Board[] array, int index){
+        return array[index];
+    }
+
+    //D. contains()
+    public static boolean contains (Board[] array, Board element){
+//        for (int i =0; i<size(array); i++){
+//            Board b = get(array, i);
+//        }
+        //간략화 ()
+        for( Board b : array){
+            if (element.equals(b)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    // E. indexOf()
+    public static int indexOf(Board[] array, Board element){
+        for(int i =0; i <size(array);i++){
+            if(element.equals(get(array,i))){
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    //F. add
+    public static Board[] add(Board[] array, Board element){
+        Board[] temp = new Board[size(array)+1];
+        for(int i=0; i < size(array); i++){
+            temp[i] = get(array,i);
+        }
+        temp[size(array)] = element;
+        return temp;
+    }
+    //G add
+    public static Board[] add(Board[] array, int index, Board element){
+        Board[] temp =new Board[0];
+        for (int i=0; i<size(array);){
+            if(i != index){
+                temp = add(temp, get(array,i));
+                i++;
+            }else {
+                temp = add(temp, element);
+            }
+        }
+        return temp;
+    }
+
+    // H Set()
+    public static Board set(Board[] array, int index, Board element){
+        Board temp = get(array,index);
+        array[index] = element;
+
+        return temp;
+    }
+    //I. remove()
+    public static Board[] remove(Board[] array, int index){
+        Board[] temp = new Board[0];
+        for(int i =0; i<size(array); i++){
+            if(i != index){
+                temp= add(temp,get(array,i));
+            }
+        }
+        return temp;
+    }
+
+    //J. remove()
+    public static Board[] remove(Board[] array, Board element){
+
+        return remove(array, indexOf(array,element));
+    }
+
+
+
 }
