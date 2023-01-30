@@ -9,11 +9,10 @@ public class MovieDTO {
 
     private int release_year;
     private int language_id;
-    private int original_language_id;
     private int rental_duration;
     private int rental_rate;
     private int length;
-    private int replacement_cost;
+
     private String rating;
     private String special_features;
     private Timestamp last_update;
@@ -58,13 +57,6 @@ public class MovieDTO {
         this.language_id = language_id;
     }
 
-    public int getOriginal_language_id() {
-        return original_language_id;
-    }
-
-    public void setOriginal_language_id(int original_language_id) {
-        this.original_language_id = original_language_id;
-    }
 
     public int getRental_duration() {
         return rental_duration;
@@ -90,13 +82,6 @@ public class MovieDTO {
         this.length = length;
     }
 
-    public int getReplacement_cost() {
-        return replacement_cost;
-    }
-
-    public void setReplacement_cost(int replacement_cost) {
-        this.replacement_cost = replacement_cost;
-    }
 
     public String getRating() {
         return rating;

@@ -29,7 +29,7 @@ public class CustomerViewer {
         System.out.println("======================================================");
         String message = "1. 회원 등록  2. 회원 수정  3. 회원 삭제  4. 회원 검색 5. 뒤로 가기";
         while (true) {
-            int userChoice = ScannerUtil.nextInt(SCANNER, message,1,4);
+            int userChoice = ScannerUtil.nextInt(SCANNER, message,1,5);
             int choiceId;
             if (userChoice == 1) {
                 register();
@@ -56,13 +56,14 @@ public class CustomerViewer {
 
                 VideoMVC.mainMenu();
 
+
             }
         }
     }
 
     private void searchMenu() {
         String message = "1. 이름으로 검색  2. 이메일로 검색  3. 뒤로 가기";
-        CustomerController customerController = new CustomerController(connection);
+
         while (true) {
             int userChoice = ScannerUtil.nextInt(SCANNER, message,1,3);
             if(userChoice ==1 || userChoice ==2){
