@@ -17,13 +17,13 @@ public class CustomerController {
     }
 
     public boolean insert(CustomerDTO customerDTO){
-        String query = "INSERT INTO `customer`(`store_id`,`first_name`, `last_name`, `email`, `create_date`,`last_update`) VALUES(?,?,?,?,NOW(),NOW())";
+        String query = "INSERT INTO `customer`(`first_name`, `last_name`, `email`, `create_date`) VALUES(?,?,?,NOW())";
         try {
             PreparedStatement pstmt = connection.prepareStatement(query);
-            pstmt.setInt(1,customerDTO.getStore_id());
-            pstmt.setString(2, customerDTO.getFirst_name());
-            pstmt.setString(3,customerDTO.getLast_name());
-            pstmt.setString(4, customerDTO.getEmail());
+
+            pstmt.setString(1, customerDTO.getFirst_name());
+            pstmt.setString(2,customerDTO.getLast_name());
+            pstmt.setString(3, customerDTO.getEmail());
 
 
             pstmt.executeUpdate();
@@ -36,7 +36,7 @@ public class CustomerController {
     }
 
     public void update(CustomerDTO customerDTO){
-        String query = "UPDATE `customer` SET `first_name`=?, `last_name` = ?, `last_update` = NOW() WHERE `id` = ?";
+        String query = "UPDATE `customer` SET `first_name`=?, `last_name` = ?, `last_update` = NOW() WHERE `customer_id` = ?";
         try {
             PreparedStatement pstmt = connection.prepareStatement(query);
             pstmt.setString(1, customerDTO.getFirst_name());
@@ -51,10 +51,11 @@ public class CustomerController {
     }
 
     public void delete(int id){
-        String query = "DELETE FROM `customer`  WHERE `id` = ?";
+        String query = "DELETE FROM `customer`  WHERE `customer_id` = ?";
         try {
             PreparedStatement pstmt = connection.prepareStatement(query);
             pstmt.setInt(1, id);
+
             pstmt.executeUpdate();
             pstmt.close();
 
@@ -65,7 +66,7 @@ public class CustomerController {
     public ArrayList<CustomerDTO> selectAll(){
         ArrayList<CustomerDTO> list = new ArrayList<>();
 
-        String query = "SELECT * FROM `customer`  ORDER BY  `board`.`id` DESC";
+        String query = "SELECT * FROM `customer`  ORDER BY  `customer`.`customer_id` ASC ";
 
         try {
             PreparedStatement pstmt = connection.prepareStatement(query);
@@ -92,7 +93,7 @@ public class CustomerController {
 
     public CustomerDTO selectOne(int id){
         CustomerDTO c = null;
-        String query = "SELECT * FROM `customer` WHERE `id` = ?";
+        String query = "SELECT * FROM `customer` WHERE `customer_id` = ?";
         try {
             PreparedStatement pstmt = connection.prepareStatement(query);
             pstmt.setInt(1, id);
@@ -111,6 +112,7 @@ public class CustomerController {
 
         } catch (SQLException e) {
             e.printStackTrace();
+            System.out.println("해당 회원은 존재하지 않습니다.");
         }
 
         return c;

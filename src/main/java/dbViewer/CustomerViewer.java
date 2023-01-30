@@ -1,16 +1,21 @@
 package dbViewer;
 
+import day0127.VideoMVC;
 import dbConn.ConnectionMaker;
 import dbController.CustomerController;
 import dbController.UserController;
+import model.CommentDTO;
 import model.CustomerDTO;
 import util.ScannerUtil;
 
 import java.sql.Connection;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class CustomerViewer {
     private final Scanner SCANNER;
+
     private Connection connection;
 
     public CustomerViewer(ConnectionMaker connectionMaker) {
@@ -19,25 +24,34 @@ public class CustomerViewer {
     }
 
     public void showIndex() {
-        CustomerController customerController =new CustomerController(connection);
-        customerController.selectAll();
-        String message = "1. 회원 등록  2. 회원 수정  3. 회원 삭제  4. 종료";
+        System.out.println("= 회원 LIST ============================================");
+        printAll();
+        System.out.println("======================================================");
+        String message = "1. 회원 등록  2. 회원 수정  3. 회원 삭제  4. 뒤로가기 ";
         while (true) {
-            int userChoice = ScannerUtil.nextInt(SCANNER, message);
+            int userChoice = ScannerUtil.nextInt(SCANNER, message,1,4);
             int choiceId;
             if (userChoice == 1) {
                 register();
+                showIndex();
             } else if (userChoice == 2) {
                 message = " 수정할 회원의 번호를 입력하세요. ";
                 choiceId = ScannerUtil.nextInt(SCANNER, message);
+
                 modify(choiceId);
+                System.out.println("수정이 완료되었습니다.");
+                showIndex();
+
             } else if (userChoice ==3) {
                 message = " 삭제할 회원의 번호를 입력하세요. ";
                 choiceId = ScannerUtil.nextInt(SCANNER, message);
                 delete(choiceId);
+                System.out.println("삭제가 완료되었습니다.");
+                showIndex();
 
             } else if (userChoice == 4) {
-                System.out.println("사용해주셔서 감사합니다.");
+
+                VideoMVC.mainMenu();
 
             }
         }
@@ -106,5 +120,15 @@ public class CustomerViewer {
             }
         }
 
+    }
+
+    public void printAll(){
+        CustomerController customerController = new CustomerController(connection);
+        ArrayList<CustomerDTO> list = customerController.selectAll();
+
+        for(CustomerDTO c:list){
+
+            System.out.printf("%d. %s%s\n",c.getCustomer_id(),c.getFirst_name(),c.getLast_name());
+        }
     }
 }
