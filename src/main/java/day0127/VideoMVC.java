@@ -29,6 +29,8 @@ public class VideoMVC {
         while(true){
             if (choice == 1){
                 customerViewer.showIndex();
+            } else if (choice ==2) {
+                
             } else if (choice == 5) {
                 System.out.println("사용해주셔서 감사합니다.");
                 break;

@@ -27,7 +27,7 @@ public class CustomerViewer {
         System.out.println("= 회원 LIST ============================================");
         printAll();
         System.out.println("======================================================");
-        String message = "1. 회원 등록  2. 회원 수정  3. 회원 삭제  4. 뒤로가기 ";
+        String message = "1. 회원 등록  2. 회원 수정  3. 회원 삭제  4. 회원 검색 5. 뒤로 가기";
         while (true) {
             int userChoice = ScannerUtil.nextInt(SCANNER, message,1,4);
             int choiceId;
@@ -50,11 +50,66 @@ public class CustomerViewer {
                 showIndex();
 
             } else if (userChoice == 4) {
+                searchMenu();
+
+            } else if (userChoice == 5) {
 
                 VideoMVC.mainMenu();
 
             }
         }
+    }
+
+    private void searchMenu() {
+        String message = "1. 이름으로 검색  2. 이메일로 검색  3. 뒤로 가기";
+        CustomerController customerController = new CustomerController(connection);
+        while (true) {
+            int userChoice = ScannerUtil.nextInt(SCANNER, message,1,3);
+            if(userChoice ==1 || userChoice ==2){
+                printCustomer(userChoice);
+
+            } else if (userChoice==3) {
+                showIndex();
+            }
+        }
+    }
+
+    private void printCustomer(int mode) {
+        ArrayList<CustomerDTO> list = null;
+
+        if (mode ==1){
+            String message = " 회원의 성을 입력하세요 ";
+            String f_name = ScannerUtil.nextLine(SCANNER, message);
+
+            message = " 회원의 이름을 입력하세요 ";
+            String l_name = ScannerUtil.nextLine(SCANNER, message);
+
+            CustomerController customerController =new CustomerController(connection);
+            list = customerController.selectName(f_name,l_name);
+
+        }else {
+            String message = " 회원의 이메일을 입력하세요 ";
+            String email = ScannerUtil.nextLine(SCANNER, message);
+
+            CustomerController customerController =new CustomerController(connection);
+            list = customerController.selectEmail(email);
+
+        }
+
+        if (!list.isEmpty()){
+            for (CustomerDTO c : list){
+                System.out.println("=회원 정보=============================");
+                System.out.printf("회원 번호 : %d  이름 : %s%s  \n" +
+                        "이메일 : %s\n",c.getCustomer_id(), c.getFirst_name(),c.getLast_name(),c.getEmail());
+                System.out.println("=======================================");
+            }
+        }else {
+            System.out.println("회원을 찾을 수 없습니다.");
+        }
+
+
+
+
     }
 
     private void delete(int id) {

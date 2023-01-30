@@ -118,4 +118,65 @@ public class CustomerController {
         return c;
     }
 
+    public ArrayList<CustomerDTO> selectName(String first_name, String last_name){
+        ArrayList<CustomerDTO> list = new ArrayList<>();
+
+        String query = "SELECT * FROM `customer`  WHERE `first_name` = ? AND`last_name` = ? ";
+
+        try {
+            PreparedStatement pstmt = connection.prepareStatement(query);
+            pstmt.setString(1,first_name);
+            pstmt.setString(2,last_name);
+            ResultSet resultSet = pstmt.executeQuery();
+            while (resultSet.next()){
+                CustomerDTO c = new CustomerDTO();
+                c.setCustomer_id(resultSet.getInt("customer_id"));
+                c.setFirst_name(resultSet.getString("first_name"));
+                c.setLast_name(resultSet.getString("last_name"));
+                c.setEmail(resultSet.getString("email"));
+                c.setCreate_date(resultSet.getTimestamp("create_date"));
+                c.setLast_update(resultSet.getTimestamp("last_update"));
+
+                list.add(c);
+            }
+            pstmt.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return list;
+    }
+
+    public ArrayList<CustomerDTO> selectEmail(String email){
+        ArrayList<CustomerDTO> list = new ArrayList<>();
+
+        String query = "SELECT * FROM `customer`  WHERE `email` = ? ";
+
+        try {
+            PreparedStatement pstmt = connection.prepareStatement(query);
+            pstmt.setString(1,email);
+
+            ResultSet resultSet = pstmt.executeQuery();
+            while (resultSet.next()){
+                CustomerDTO c = new CustomerDTO();
+                c.setCustomer_id(resultSet.getInt("customer_id"));
+                c.setFirst_name(resultSet.getString("first_name"));
+                c.setLast_name(resultSet.getString("last_name"));
+                c.setEmail(resultSet.getString("email"));
+                c.setCreate_date(resultSet.getTimestamp("create_date"));
+                c.setLast_update(resultSet.getTimestamp("last_update"));
+
+                list.add(c);
+            }
+            pstmt.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return list;
+    }
+
+
 }
